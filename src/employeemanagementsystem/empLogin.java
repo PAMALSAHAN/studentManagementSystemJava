@@ -6,6 +6,7 @@
 package employeemanagementsystem;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +20,10 @@ public class empLogin extends javax.swing.JFrame {
     public empLogin() {
         initComponents();
     }
-
+    
+    // this is for to connect db operation
+    DBOperations dops=new DBOperations();
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +53,11 @@ public class empLogin extends javax.swing.JFrame {
         jLabel2.setText("User Name");
 
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         btnNewUser.setText("New User");
         btnNewUser.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +130,27 @@ public class empLogin extends javax.swing.JFrame {
         nu.setVisible(true);
         nu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }//GEN-LAST:event_btnNewUserActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        int login=dops.checkLogin(txtUserName.getText(), txtPassword.getText());
+        
+        if(login == 0){
+            JOptionPane.showConfirmDialog(this, "Login Success");
+        }
+        else if(login ==1){
+            JOptionPane.showConfirmDialog(this, "Username Password mismatch");
+            txtUserName.setText("");
+            txtPassword.setText("");
+            
+        }
+        else{
+            JOptionPane.showConfirmDialog(this, "Error Occur");
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
